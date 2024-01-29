@@ -78,8 +78,8 @@ data = dict(
         ]),
     test=dict(
         type='Flowers',
-        data_prefix='data/flowers/val',
-        ann_file='data/flowers/meta/val.txt',
+        data_prefix='data/flowers/test',
+        ann_file='data/flowers/meta/test.txt',
         pipeline=[
             dict(type='LoadImageFromFile'),
             dict(type='Resize', size=(256, -1)),
