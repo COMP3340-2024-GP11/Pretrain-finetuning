@@ -1,5 +1,5 @@
 # checkpoint saving
-checkpoint_config = dict(interval=1)
+checkpoint_config = dict(interval=100)
 # yapf:disable
 log_config = dict(
     interval=100,
