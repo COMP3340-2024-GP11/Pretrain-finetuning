@@ -1,5 +1,5 @@
 _base_ = [
-    '../_base_/models/resnet50_finetune.py',
+    '../_base_/models/resnet50_cifar10.py',
     '../_base_/datasets/cifar10_bs16.py', '../_base_/default_runtime.py'
 ]
 
@@ -22,7 +22,7 @@ img_norm_cfg = dict(
     to_rgb=False,
 )
 train_pipeline = [
-    dict(type='RandomCrop', size=32, padding=4),
+    dict(type='RandomCrop', size=30, padding=4),
     dict(type='RandomFlip', flip_prob=0.5, direction='horizontal'),
     dict(type='Resize', size=224),
     dict(type='Normalize', **img_norm_cfg),
@@ -37,7 +37,7 @@ test_pipeline = [
     dict(type='Collect', keys=['img']),
 ]
 data = dict(
-    samples_per_gpu=128,
+    samples_per_gpu=25,
     train=dict(pipeline=train_pipeline),
     val=dict(pipeline=test_pipeline),
     test=dict(pipeline=test_pipeline),

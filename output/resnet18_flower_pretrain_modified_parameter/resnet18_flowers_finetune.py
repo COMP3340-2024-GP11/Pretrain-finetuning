@@ -5,7 +5,13 @@ model = dict(
         depth=18,
         num_stages=4,
         out_indices=(3, ),
-        style='pytorch'),
+        style='pytorch',
+        frozen_stages=2,
+        init_cfg=dict(
+            type='Pretrained',
+            checkpoint=
+            '/userhome/cs2/hzyalex/resnet18_8xb32_in1k_20210831-fbbb1da6.pth',
+            prefix='backbone')),
     neck=dict(type='GlobalAveragePooling'),
     head=dict(
         type='LinearClsHead',
@@ -93,10 +99,6 @@ data = dict(
             dict(type='Collect', keys=['img'])
         ]))
 evaluation = dict(interval=1, metric='accuracy')
-optimizer = dict(type='SGD', lr=0.1, momentum=0.9, weight_decay=0.0001)
-optimizer_config = dict(grad_clip=None)
-lr_config = dict(policy='step', step=[100, 150])
-runner = dict(type='EpochBasedRunner', max_epochs=200)
 checkpoint_config = dict(interval=100)
 log_config = dict(interval=100, hooks=[dict(type='TextLoggerHook')])
 dist_params = dict(backend='nccl')
@@ -104,5 +106,9 @@ log_level = 'INFO'
 load_from = None
 resume_from = None
 workflow = [('train', 1)]
-work_dir = 'output/resnet18_flowers_bs128'
+optimizer = dict(type='SGD', lr=0.01, momentum=0.9, weight_decay=0.0001)
+optimizer_config = dict(grad_clip=None)
+lr_config = dict(policy='step', step=[15])
+runner = dict(type='EpochBasedRunner', max_epochs=200)
+work_dir = 'output/resnet18_flower_pretrain_modified_parameter'
 gpu_ids = range(0, 1)
