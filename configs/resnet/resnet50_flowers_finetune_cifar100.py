@@ -1,5 +1,5 @@
 _base_ = [
-    '../_base_/models/resnet18_flowers.py', '../_base_/datasets/flowers_bs32.py', '../_base_/default_runtime.py'
+    '../_base_/models/resnet50_flowers.py', '../_base_/datasets/flowers_bs32.py', '../_base_/default_runtime.py'
 ]
 
 model = dict(
@@ -7,7 +7,7 @@ model = dict(
         frozen_stages=2,
         init_cfg=dict(
             type='Pretrained',
-            checkpoint='./resources/resnet18_8xb32_in1k_20210831-fbbb1da6.pth',
+            checkpoint='./resources/resnet50_cifar100.pth',
             prefix='backbone',
         )),
     head=dict(num_classes=17),
